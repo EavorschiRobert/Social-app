@@ -7,8 +7,12 @@ import {Form,FormControl,FormDescription,FormField,FormItem,FormLabel,FormMessag
 import { Input } from "@/components/ui/input"
 import { SignupValidation } from '@/lib/validation'
 import { z } from 'zod'
+import {Loader } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { createUserAccount } from '@/lib/appwrite/api'
 
 const SigninForm = () => {
+  const isLoading = false;
   
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -22,11 +26,10 @@ const SigninForm = () => {
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignupValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
-  }
+  async function onSubmit(values: z.infer<typeof SignupValidation>) {
+    const newUser =  await createUserAccount(values);
+    console.log(newUser);
+    }
 
   return (
 
@@ -34,7 +37,7 @@ const SigninForm = () => {
       <div className="sm:w-200 flex-center flex-col">
         <img src="/assets/images/logo.svg" alt="logo"></img>
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Create a new account</h2>
-        <p className="text-light-3 snall-medium md:base-regular mt-2">To use Snapgram enter your account detail</p>
+        <p className="text-light-3 snall-medium md:base-regular mt-2">To use Snapgram, please enter your detail</p>
       
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex-col gap-5 w-full mt-4">
           <FormField
@@ -90,7 +93,18 @@ const SigninForm = () => {
             )}
             
           />
-          <Button type="submit" className="shad-button_primary">Submit</Button>
+          <Button type="submit" className="shad-button_primary">
+          {isLoading ? (
+            <div className="flex-center gap-2">
+              <Loader/>
+              Loading...
+            </div>
+          ): "Sign up"}
+          </Button>
+          <p className="text-small-regular text-light-2 text-center mt-2">
+            Already have an account
+            <Link to="/sign-in" className="text-primary-500 text-small-semibold ml-1">Sign in</Link>
+          </p>
         </form>
         </div>
     </Form>

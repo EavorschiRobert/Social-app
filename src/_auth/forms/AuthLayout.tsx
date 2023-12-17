@@ -13,13 +13,13 @@ const AuthLayout = () => {
     (
     <>
       <section className="flex flex-1 items-center flex-row justify-between">
-        <section className="pl-5 pr-5">
+        <section className="pl-5 pr-5 pl-20">
           <Outlet/>
         </section>
-        <section>
+        <section className="flex-end">
           <img src='/assets/images/side-img.svg'
               alt='logo'
-              className=' xl:block h-screen  object-cover bg-no-repeat content-end'
+              className='md-hidden xl:block h-screen  object-cover bg-no-repeat content-end'
             ></img>
         </section>
       </section>
