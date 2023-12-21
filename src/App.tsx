@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom'
 import { Home } from './_root/pages'
 import AuthLayout from './_auth/forms/AuthLayout'
 import RootLayout from './_root/RootLayout'
+import { Toaster } from './components/ui/toaster'
 
 
 const App = () => {
@@ -26,6 +27,8 @@ const App = () => {
         </Route>
         
       </Routes>
+
+      <Toaster />
     </main>
     
   )
